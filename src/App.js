@@ -77,7 +77,7 @@ const ResidentForm = () => {
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
     //doc.text('MANAGEMENT SIGNATURE', 350, doc.autoTable.previous.finalY + 130);
-    doc.addImage(paid, 'JPG', 90, 600, 190, 150); 
+    doc.addImage(paid, 'JPG', 90, 600, 150, 150); 
     doc.save(`${formData.name}_${formData.dateOfPayment}_RentReceipt.pdf`);
   };
 
