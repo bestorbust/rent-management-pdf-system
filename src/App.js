@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import jsPDF from 'jspdf';
 import logo from './image/LOGO.jpg'; 
-import signature from './image/image.jpg'; 
+import stamp from './image/paid.jpg'; 
 import paid from './image/paid.png';
 import 'jspdf-autotable'; 
 import './App.css';
@@ -26,11 +26,11 @@ const ResidentForm = () => {
   const generatePDF = () => {
     const doc = new jsPDF('p', 'pt', 'a4');
     //X,Y,W,H
-    doc.addImage(logo, 'PNG', 200, -10, 200, 200); 
-    doc.setFontSize(25);
+    doc.addImage(logo, 'PNG', 200, -10, 200, 200);
+    /*doc.setFontSize(25);
     doc.setFont('helvetica','bold');
     doc.setTextColor(0, 0, 255);
-    doc.text('#SAHANA LADIES PG', 180, 160);
+    doc.text('#SAHANA LADIES PG', 180, 160);*/
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.text('#26  PEERLESS COLONY ,NEAR GARDEN CITY COLLEGE ,BHATTRAHALLI , KR PURAM 560049', 70, 180);
@@ -73,11 +73,11 @@ const ResidentForm = () => {
       }
     });
 
-    doc.addImage(signature, 'PNG', 300, doc.autoTable.previous.finalY + 50, 280, 70);
+    doc.addImage(stamp, 'PNG', 300, doc.autoTable.previous.finalY + 50, 280, 70);
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.text('MANAGEMENT SIGNATURE', 350, doc.autoTable.previous.finalY + 130);
-    doc.addImage(paid, 'PNG', 90, 600, 190, 150); 
+    //doc.text('MANAGEMENT SIGNATURE', 350, doc.autoTable.previous.finalY + 130);
+    doc.addImage(paid, 'JPG', 90, 600, 190, 150); 
     doc.save(`${formData.name}_${formData.dateOfPayment}_RentReceipt.pdf`);
   };
 
