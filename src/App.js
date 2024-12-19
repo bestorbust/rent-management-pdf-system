@@ -10,12 +10,12 @@ const ResidentForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     roomNumber: '',
-    modeOfPayment: '',
+    modeOfPayment: 'Cash',
     depositAmount: '',
     dateOfPayment: '',
     overstandingDues: '',
-    sharing: '',
-    rentMonth: '',
+    sharing: 'Single',
+    rentMonth: 'Ongoing',
   });
 
   const handleChange = (e) => {
@@ -119,6 +119,7 @@ const ResidentForm = () => {
           <select name="sharing" value={formData.sharing} onChange={handleChange} required className="input">
             <option value="Single">Single</option>
             <option value="Double">Double</option>
+            <option value="Double">Triple</option>
           </select>
           {/* <input type="text" name="sharing" value={formData.sharing} onChange={handleChange} required className="input" /> */}
         </label>
