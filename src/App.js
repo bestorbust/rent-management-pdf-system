@@ -119,7 +119,7 @@ const ResidentForm = () => {
           <select name="sharing" value={formData.sharing} onChange={handleChange} required className="input">
             <option value="Single">Single</option>
             <option value="Double">Double</option>
-            <option value="Double">Triple</option>
+            <option value="Triple">Triple</option>
           </select>
           {/* <input type="text" name="sharing" value={formData.sharing} onChange={handleChange} required className="input" /> */}
         </label>
