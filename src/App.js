@@ -4,6 +4,7 @@ import logo from './image/LOGO.jpg';
 import signature from './image/image.jpg'; 
 import paid from './image/paid.png';
 import 'jspdf-autotable'; 
+import './App.css';
 
 const ResidentForm = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ const ResidentForm = () => {
     modeOfPayment: '',
     depositAmount: '',
     dateOfPayment: '',
-    //overstandingDues: '',
+    overstandingDues: '',
     sharing: '',
     rentMonth: '',
   });
@@ -24,125 +25,116 @@ const ResidentForm = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF('p', 'pt', 'a4');
-
-    doc.addImage(logo, 'PNG', 180, 50, 250, 100); 
+    //X,Y,W,H
+    doc.addImage(logo, 'PNG', 200, -10, 200, 200); 
+    doc.setFontSize(25);
+    doc.setFont('helvetica','bold');
+    doc.setTextColor(0, 0, 255);
+    doc.text('#SAHANA LADIES PG', 180, 160);
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text('#26  PEERLESS COLONY ,NEAR GARDEN CITY COLLEGE ,BHATTRAHALLI , KR PURAM 560049', 70, 180);
     doc.setFontSize(24);
-    doc.text('SAHANA PG (PAYMENT RECEIPT)', 100, 170);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 0, 0);
+    doc.text('PAYMENT RECEIPT', 195, 210);
 
     const tableData = [
-      ['Resident Name', formData.name],
-      ['Room No', formData.roomNumber],
-      ['Mode of Payment', formData.modeOfPayment],
-      ['Rent Amount', formData.rentAmount],
-      ['Date of Payment', formData.dateOfPayment],
-      ['Overstanding Dues', formData.overstandingDues],
-      ['Sharing', formData.sharing],
-      ['Rent Month', formData.rentMonth],
+      ['Resident Name:', formData.name],
+      ['Room No:', formData.roomNumber],
+      ['Mode of Payment:', formData.modeOfPayment],
+      ['Rent Amount:', formData.rentAmount],
+      ['Date of Payment:', formData.dateOfPayment],
+      ['Overstanding Dues:', formData.overstandingDues],
+      ['Sharing:', formData.sharing],
+      ['Rent Month:', formData.rentMonth],
     ];
 
     doc.autoTable({
-      head: [['Field', 'Details']],
+      //head: [['Field', 'Details']],
       body: tableData,
-      startY: 200, 
+      startY: 250, 
       styles: {
-        fontSize: 20,
-        halign: 'center',
+        fontSize: 24,
+        halign: 'left',
         valign: 'middle',
+        //cellPadding: 2,
+        fillColor:null,
+        textColor: 0,
+        lineWidth:0.9,
+        lineColor:0,
       },
+      // tableLineWidth: 0.5,
+      // tableLineColor:0,
+      theme:'plain',
+      columnStyles:{
+        0: { fontStyle: 'bold', cellWidth: 250 },
+        1: { cellWidth: 'auto',overflow:'linebreak' },
+      }
     });
 
     doc.addImage(signature, 'PNG', 300, doc.autoTable.previous.finalY + 50, 280, 70);
     doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
     doc.text('MANAGEMENT SIGNATURE', 350, doc.autoTable.previous.finalY + 130);
-
-    doc.addImage(paid, 'PNG', 90, 530, 190, 150); 
+    doc.addImage(paid, 'PNG', 90, 600, 190, 150); 
     doc.save(`${formData.name}_${formData.dateOfPayment}_RentReceipt.pdf`);
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Generate Rent Details PDF</h2>
-      <form onSubmit={(e) => { e.preventDefault(); generatePDF(); }} style={styles.form}>
-        <label style={styles.label}>
+    <div className="container">
+    <div className="form">
+      <h2 className="heading">Generate Rent Details PDF</h2>
+      <form onSubmit={(e) => { e.preventDefault(); generatePDF(); }}>
+        <label className="label">
           Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required style={styles.input} />
+          <input type="text" name="name" value={formData.name} onChange={handleChange} required className="input" />
         </label>
-        <label style={styles.label}>
+        <label className="label">
           Room Number:
-          <input type="text" name="roomNumber" value={formData.roomNumber} onChange={handleChange} required style={styles.input} />
+          <input type="number" name="roomNumber" value={formData.roomNumber} onChange={handleChange} required className="input" min="0"/>
         </label>
-        <label style={styles.label}>
+        <label className="label">
           Mode of Payment:
-          <input type="text" name="modeOfPayment" value={formData.modeOfPayment} onChange={handleChange} required style={styles.input} />
+          <select name="modeOfPayment" value={formData.modeOfPayment} onChange={handleChange} required className="input">
+            <option value="Cash">Cash</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+          </select>
+          {/* <input type="text" name="modeOfPayment" value={formData.modeOfPayment} onChange={handleChange} required className="input" /> */}
         </label>
-        <label style={styles.label}>
+        <label className="label">
           Rent Amount:
-          <input type="text" name="rentAmount" value={formData.rentAmount} onChange={handleChange} required style={styles.input} />
+          <input type="number" name="rentAmount" value={formData.rentAmount} onChange={handleChange} required className="input" min="0"/>
         </label>
-        <label style={styles.label}>
+        <label className="label">
           Date of Payment:
-          <input type="date" name="dateOfPayment" value={formData.dateOfPayment} onChange={handleChange} required style={styles.input} />
+          <input type="date" name="dateOfPayment" value={formData.dateOfPayment} onChange={handleChange} required className="input" />
         </label>
-        <label style={styles.label}>
+        <label className="label">
+          Overstanding Dues:
+          <input type="number" name="overstandingDues" value={formData.overstandingDues} onChange={handleChange} required className="input" min="0"/>
+        </label>
+        <label className="label">
           Sharing:
-          <input type="text" name="sharing" value={formData.sharing} onChange={handleChange} required style={styles.input} />
+          <select name="sharing" value={formData.sharing} onChange={handleChange} required className="input">
+            <option value="Single">Single</option>
+            <option value="Double">Double</option>
+          </select>
+          {/* <input type="text" name="sharing" value={formData.sharing} onChange={handleChange} required className="input" /> */}
         </label>
-        <label style={styles.label}>
+        <label className="label">
           Rent Month:
-          <input type="text" name="rentMonth" value={formData.rentMonth} onChange={handleChange} required style={styles.input} />
+          <select name="rentMonth" value={formData.rentMonth} onChange={handleChange} required className="input">
+            <option value="Ongoing">Ongoing</option>
+            <option value="Previous">Previous</option>
+          </select>
+          {/* <input type="text" name="rentMonth" value={formData.rentMonth} onChange={handleChange} required className="input" /> */}
         </label>
-        <button type="submit" style={styles.button}>Generate PDF</button>
+        <button type="submit" className="button">Generate PDF</button>
       </form>
     </div>
+    </div>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: '600px',
-    margin: '0 auto',
-    padding: '20px',
-    backgroundColor: '#f4f4f9',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-   
-  },
-  heading: {
-    textAlign: 'center',
-    color: '#333',
-    marginBottom: '20px',
-    fontFamily: 'Arial, sans-serif',
-    fontSize: '24px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  label: {
-    marginBottom: '10px',
-    fontFamily: 'Arial, sans-serif',
-    color: '#555',
-    fontSize: '16px',
-  },
-  input: {
-    padding: '10px',
-    fontSize: '16px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    marginBottom: '20px',
-    width: '100%',
-    boxSizing: 'border-box',
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '18px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    textAlign: 'center',
-  },
 };
 
 export default ResidentForm;
