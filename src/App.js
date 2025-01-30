@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import jsPDF from 'jspdf';
-import logo from './image/LOGO.jpg'; 
-import stamp from './image/paid.jpg'; 
-import paid from './image/paid.png';
-import 'jspdf-autotable'; 
+import logo from './image/LOGO.png'; 
+import stamp from './image/paid.png'; 
+import paid from './image/seal.png';
+import 'jspdf-autotable';
 import './App.css';
 
 const ResidentForm = () => {
@@ -17,6 +17,7 @@ const ResidentForm = () => {
     sharing: 'Single',
     rentMonth: 'Ongoing',
     receiptType: 'Rent', 
+    tenure:'',
   });
 
   const handleChange = (e) => {
@@ -34,7 +35,6 @@ const ResidentForm = () => {
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(255, 0, 0);
   
-    // Center the title dynamically
     const title = formData.receiptType === 'Rent' ? 'RENT PAYMENT RECEIPT' : 'DEPOSIT PAYMENT RECEIPT';
     const pageWidth = doc.internal.pageSize.getWidth();
     const textWidth = doc.getTextWidth(title);
@@ -58,6 +58,7 @@ const ResidentForm = () => {
           ['Mode of Payment:', formData.modeOfPayment],
           ['Deposit Amount:', formData.amount],
           ['Date of Payment:', formData.dateOfPayment],
+          ['Agreement Tenure: ',formData.tenure]
         ];
   
     doc.autoTable({
@@ -79,10 +80,10 @@ const ResidentForm = () => {
       },
     });
   
-    doc.addImage(stamp, 'PNG', 300, doc.autoTable.previous.finalY + 50, 280, 70);
+    doc.addImage(stamp, 'PNG', 300, doc.autoTable.previous.finalY + 50, 120, 70);
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.addImage(paid, 'JPG', 90, 600, 150, 150); 
+    doc.addImage(paid, 'JPG', 150, 570, 150, 150); 
   
     const fileName = `${formData.name}_${formData.dateOfPayment}_${formData.receiptType}Receipt.pdf`;
     doc.save(fileName);
@@ -131,6 +132,13 @@ const ResidentForm = () => {
             Date of Payment:
             <input type="date" name="dateOfPayment" value={formData.dateOfPayment} onChange={handleChange} required className="input" />
           </label>
+          {formData.receiptType === 'Deposit' &&(
+            <>
+            <label className="label">
+            Agreement Tenure:
+            <input type="text" name="tenure" value={formData.tenure} onChange={handleChange} required className="input" />
+          </label></>
+          )}
           {formData.receiptType === 'Rent' && (
             <>
               <label className="label">
