@@ -27,7 +27,7 @@ const ResidentForm = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF('p', 'pt', 'a4');
-    doc.addImage(logo, 'PNG', 200, -10, 200, 200);
+    doc.addImage(logo, 'PNG', 200, 35, 200, 150);
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.text('#26  PEERLESS COLONY ,NEAR GARDEN CITY COLLEGE ,BHATTRAHALLI , KR PURAM 560049', 70, 180);
