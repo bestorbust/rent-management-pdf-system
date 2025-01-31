@@ -83,7 +83,7 @@ const ResidentForm = () => {
     doc.addImage(stamp, 'PNG', 300, doc.autoTable.previous.finalY + 50, 120, 70);
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.addImage(paid, 'JPG', 150, 570, 150, 150); 
+    doc.addImage(paid, 'JPG', 130, 500, 180, 150); 
   
     const fileName = `${formData.name}_${formData.dateOfPayment}_${formData.receiptType}Receipt.pdf`;
     doc.save(fileName);
