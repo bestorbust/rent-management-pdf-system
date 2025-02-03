@@ -32,6 +32,11 @@ const ResidentForm = () => {
     doc.setTextColor(0, 0, 0);
     doc.text('#26  PEERLESS COLONY ,NEAR GARDEN CITY COLLEGE ,BHATTRAHALLI , KR PURAM 560049', 70, 180);
     doc.setFontSize(24);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'bold');
+    doc.text('#SAHANA LADIES PG', 170, 205);
+    
+    doc.setFontSize(30);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(255, 0, 0);
   
@@ -39,7 +44,7 @@ const ResidentForm = () => {
     const pageWidth = doc.internal.pageSize.getWidth();
     const textWidth = doc.getTextWidth(title);
     const xCoordinate = (pageWidth - textWidth) / 2;
-    doc.text(title, xCoordinate, 210);
+    doc.text(title, xCoordinate, 240);
   
     const tableData = formData.receiptType === 'Rent'
       ? [
@@ -83,7 +88,7 @@ const ResidentForm = () => {
     doc.addImage(stamp, 'PNG', 300, doc.autoTable.previous.finalY + 50, 120, 70);
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.addImage(paid, 'JPG', 130, 500, 180, 150); 
+    doc.addImage(paid, 'JPG', 130, doc.autoTable.previous.finalY + 10, 180, 150); 
   
     const fileName = `${formData.name}_${formData.dateOfPayment}_${formData.receiptType}Receipt.pdf`;
     doc.save(fileName);
