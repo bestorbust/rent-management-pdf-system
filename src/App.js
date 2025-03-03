@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import jsPDF from 'jspdf';
-import logo from './image/LOGO.jpg';
-import stamp from './image/paid.jpg';
+import logo from './image/LOGO.png'; 
+import stamp from './image/paid.png'; 
+import paid from './image/seal.png';
 import 'jspdf-autotable';
 import './App.css';
 
