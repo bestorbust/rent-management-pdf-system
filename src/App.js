@@ -7,6 +7,7 @@ import paid from './image/seal.png';
 import 'jspdf-autotable';
 import './App.css';
 
+
 const ResidentForm = () => {
   const [formData, setFormData] = useState({
     name: '',
