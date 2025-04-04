@@ -162,10 +162,10 @@ const ResidentForm = () => {
 
     doc.setFontSize(12);
     doc.text("ROOM NO:", 150, 70);
-    doc.text(formData.roomNo, 170, 70);
+    doc.text(formData.roomNo, 180, 70);
   
     doc.text("SHARING:", 150, 75);
-    doc.text(formData.sharing, 170, 75);
+    doc.text(formData.sharing, 180, 75);
   
     doc.text("PHOTO:", 20, 80);
  
