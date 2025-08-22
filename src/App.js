@@ -51,6 +51,8 @@ const ResidentForm = () => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
+  const toCaps = (value) => (value ? String(value).toUpperCase() : "");
+
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
@@ -92,32 +94,41 @@ const ResidentForm = () => {
     doc.setFontSize(24);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(255, 0, 0);
+
+    const subtitle= '#SAHANA LADIES PG';
   
     const title = formData.receiptType === 'Rent' ? 'RENT PAYMENT RECEIPT' : 'DEPOSIT PAYMENT RECEIPT';
     const pageWidth = doc.internal.pageSize.getWidth();
     const textWidth = doc.getTextWidth(title);
     const xCoordinate = (pageWidth - textWidth) / 2;
-    doc.text(title, xCoordinate, 210);
+    doc.setFontSize(15);
+    doc.setTextColor(0, 0, 0);
+    doc.text(subtitle,220,200)
+    doc.setTextColor(255, 0, 0);
+    doc.setFontSize(24);
+    doc.text(title, xCoordinate, 225);
   
     const tableData = formData.receiptType === 'Rent'
       ? [
-          ['Resident Name:', formData.name],
-          ['Room No:', formData.roomNumber],
-          ['Mode of Payment:', formData.modeOfPayment],
-          ['Rent Amount:', formData.amount],
-          ['Date of Payment:', formData.dateOfPayment],
-          ['Overstanding Dues:', formData.overstandingDues],
-          ['Sharing:', formData.sharing],
-          ['Rent Month:', formData.rentMonth],
+          ['Resident Name:', toCaps(formData.name)],
+          ['Room No:', toCaps(formData.roomNumber)],
+          ['Mode of Payment:', toCaps(formData.modeOfPayment)],
+          ['Rent Amount:', toCaps(formData.amount)],
+          ['Date of Payment:', toCaps(formData.dateOfPayment)],
+          ['Overstanding Dues:', toCaps(formData.overstandingDues)],
+          ['Sharing:', toCaps(formData.sharing)],
+          ['Rent Month:', toCaps(formData.rentMonth)],
         ]
       : [
-          ['Resident Name:', formData.name],
-          ['Room No:', formData.roomNumber],
-          ['Mode of Payment:', formData.modeOfPayment],
-          ['Deposit Amount:', formData.amount],
-          ['Date of Payment:', formData.dateOfPayment],
-          ['Agreement Tenure: ',formData.tenure]
+          ['Resident Name:', toCaps(formData.name)],
+          ['Room No:', toCaps(formData.roomNumber)],
+          ['Mode of Payment:', toCaps(formData.modeOfPayment)],
+          ['Deposit Amount:', toCaps(formData.amount)],
+          ['Date of Payment:', toCaps(formData.dateOfPayment)],
+          ['Agreement Tenure: ',toCaps(formData.tenure)]
         ];
+
+    
   
     doc.autoTable({
       body: tableData,
@@ -139,10 +150,14 @@ const ResidentForm = () => {
     });
   
     doc.addImage(paid, 'JPG', 300, doc.autoTable.previous.finalY + 50, 120, 70);
-    doc.setFontSize(16);
-    doc.setTextColor(0, 0, 0);
-    if (formData.receiptType === "Rent") {
-      doc.addImage(stamp, 'PNG', 130, 550, 180, 150);
+    
+    if (formData.receiptType === "Rent") {    
+      const noteY = doc.autoTable.previous.finalY + 20;
+      doc.setFontSize(12);
+      doc.setTextColor(255, 0, 0);
+      doc.text("Note: Payment should be done before 3rd of every month", 40, noteY);
+  
+      doc.addImage(stamp, 'PNG', 130, 570, 180, 150);
     } else if (formData.receiptType === "Deposit") {
       doc.addImage(stamp, 'PNG', 100, 500, 200, 170);
     }
@@ -191,7 +206,7 @@ const ResidentForm = () => {
     doc.text(formData.dateOfAdmission, 70, 140);
   
     doc.text("AGREEMENT PERIOD:", 20, 145);
-    doc.text(formData.agreementPeriod, 70, 145);
+    doc.text(`${formData.agreementPeriod} (months)`, 70, 145);
     doc.text("END DATE:", 20, 150);
     doc.text(calculateEndDate(), 70, 150);
     let studentType = formData.occupation === "Other" ? `Other - ${formData.otherDetails}` : formData.occupation;
