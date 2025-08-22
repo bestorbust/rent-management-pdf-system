@@ -101,31 +101,31 @@ const ResidentForm = () => {
     const pageWidth = doc.internal.pageSize.getWidth();
     const textWidth = doc.getTextWidth(title);
     const xCoordinate = (pageWidth - textWidth) / 2;
-    doc.setFontSize(15);
+    doc.setFontSize(20);
     doc.setTextColor(0, 0, 0);
-    doc.text(subtitle,220,200)
+    doc.text(subtitle,200,200)
     doc.setTextColor(255, 0, 0);
     doc.setFontSize(24);
-    doc.text(title, xCoordinate, 225);
+    doc.text(title, xCoordinate, 230);
   
     const tableData = formData.receiptType === 'Rent'
       ? [
-          ['Resident Name:', toCaps(formData.name)],
-          ['Room No:', toCaps(formData.roomNumber)],
-          ['Mode of Payment:', toCaps(formData.modeOfPayment)],
-          ['Rent Amount:', toCaps(formData.amount)],
-          ['Date of Payment:', toCaps(formData.dateOfPayment)],
-          ['Overstanding Dues:', toCaps(formData.overstandingDues)],
-          ['Sharing:', toCaps(formData.sharing)],
-          ['Rent Month:', toCaps(formData.rentMonth)],
+          ['RESIDENT NAME:', toCaps(formData.name)],
+          ['ROOM NO:', toCaps(formData.roomNumber)],
+          ['MODE OF PAYMENT:', toCaps(formData.modeOfPayment)],
+          ['RENT AMOUNT:', toCaps(formData.amount)],
+          ['DATE OF PAYMENT:', toCaps(formData.dateOfPayment)],
+          ['OVERSTANDING DUES:', toCaps(formData.overstandingDues)],
+          ['SHARING:', toCaps(formData.sharing)],
+          ['RENT MONTH:', toCaps(formData.rentMonth)],
         ]
       : [
-          ['Resident Name:', toCaps(formData.name)],
-          ['Room No:', toCaps(formData.roomNumber)],
-          ['Mode of Payment:', toCaps(formData.modeOfPayment)],
-          ['Deposit Amount:', toCaps(formData.amount)],
-          ['Date of Payment:', toCaps(formData.dateOfPayment)],
-          ['Agreement Tenure: ',toCaps(formData.tenure)]
+          ['RESIDENT NAME:', toCaps(formData.name)],
+          ['ROOM NO:', toCaps(formData.roomNumber)],
+          ['MODE OF PAYMENT:', toCaps(formData.modeOfPayment)],
+          ['DEPOSIT OF AMOUNT:', toCaps(formData.amount)],
+          ['DATE OF PAYMENT:', toCaps(formData.dateOfPayment)],
+          ['AGREEMENT TENURE: ',toCaps(formData.tenure)]
         ];
 
     
@@ -134,7 +134,7 @@ const ResidentForm = () => {
       body: tableData,
       startY: 250, 
       styles: {
-        fontSize: 24,
+        fontSize: 20,
         halign: 'left',
         valign: 'middle',
         fillColor: null,
@@ -154,7 +154,7 @@ const ResidentForm = () => {
     if (formData.receiptType === "Rent") {    
       const noteY = doc.autoTable.previous.finalY + 20;
       doc.setFontSize(12);
-      doc.setTextColor(255, 0, 0);
+      doc.setTextColor(0, 0, 0);
       doc.text("Note: Payment should be done before 3rd of every month", 40, noteY);
   
       doc.addImage(stamp, 'PNG', 130, 570, 180, 150);
@@ -177,10 +177,10 @@ const ResidentForm = () => {
 
     doc.setFontSize(12);
     doc.text("ROOM NO:", 150, 70);
-    doc.text(formData.roomNo, 180, 70);
+    doc.text(toCaps(formData.roomNo), 180, 70);
   
     doc.text("SHARING:", 150, 75);
-    doc.text(formData.sharing, 180, 75);
+    doc.text(toCaps(formData.sharing), 180, 75);
   
     doc.text("PHOTO:", 20, 80);
  
@@ -203,10 +203,10 @@ const ResidentForm = () => {
     }
   
     doc.text("DATE OF ADMISSION:", 20, 140);
-    doc.text(formData.dateOfAdmission, 70, 140);
+    doc.text(toCaps(formData.dateOfAdmission), 70, 140);
   
     doc.text("AGREEMENT PERIOD:", 20, 145);
-    doc.text(`${formData.agreementPeriod} (months)`, 70, 145);
+    doc.text(`${formData.agreementPeriod} (MONTHS)`, 70, 145);
     doc.text("END DATE:", 20, 150);
     doc.text(calculateEndDate(), 70, 150);
     let studentType = formData.occupation === "Other" ? `Other - ${formData.otherDetails}` : formData.occupation;
@@ -216,16 +216,16 @@ const ResidentForm = () => {
     doc.autoTable({
       startY: 160,
       body: [
-        ["NAME (BLOCK LETTERS)", formData.name],
-        ["FATHER NAME", formData.fatherName],
-        ["AGE", formData.age],
-        ["PERMANENT RESIDENTIAL ADDRESS", formData.address],
-        ["CONTACT NUMBER", formData.contactNo],
-        ["STUDENT / EMPLOYEE / OTHER", studentType],
-        ["RECOMMENDED BY", formData.recommendedBy],
-        ["ADVANCE (DEPOSIT)", formData.advanceDeposit],
-        ["GUARDIAN NUMBER", formData.guardianNo],
-        ["HEALTH ISSUES", healthStatus],
+        ["NAME (BLOCK LETTERS)", toCaps(formData.name)],
+        ["FATHER NAME", toCaps(formData.fatherName)],
+        ["AGE", toCaps(formData.age)],
+        ["PERMANENT RESIDENTIAL ADDRESS", toCaps(formData.address)],
+        ["CONTACT NUMBER", toCaps(formData.contactNo)],
+        ["STUDENT / EMPLOYEE / OTHER", toCaps(studentType)],
+        ["RECOMMENDED BY", toCaps(formData.recommendedBy)],
+        ["ADVANCE (DEPOSIT)", toCaps(formData.advanceDeposit)],
+        ["GUARDIAN NUMBER", toCaps(formData.guardianNo)],
+        ["HEALTH ISSUES", toCaps(healthStatus)],
       ],
       styles: {
         fillColor: null,
@@ -325,7 +325,10 @@ if (formData.proofFiles.length > 0) {
             Mode of Payment:
             <select name="modeOfPayment" value={formData.modeOfPayment} onChange={handleChange} required className="input">
               <option value="Cash">Cash</option>
-              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="UPI">UPI</option>
+              <option value="IMPS">IMPS</option>
+              <option value="NEFT">NEFT</option>
+              <option value="RTGS">RTGS</option>
             </select>
           </label>
           <label className="label">
