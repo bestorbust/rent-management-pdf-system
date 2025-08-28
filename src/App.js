@@ -43,6 +43,7 @@ const ResidentForm = () => {
     proofFiles: [],
     vacatingDate: "",
     noticePeriod: "",
+    depositCollected: "",
     deductions: "",
     refundable: "",
     noticeprd:"No",
@@ -215,7 +216,7 @@ const ResidentForm = () => {
   const title = "Tenant Vacating Acknowledgment Form";
   const pageWidth = doc.internal.pageSize.getWidth();
   const textWidth = doc.getTextWidth(title);
-  const xCoordinate = (pageWidth - textWidth) / 2;
+  // const xCoordinate = (pageWidth - textWidth) / 2;
 
   doc.setFontSize(20);
   doc.setFont("helvetica", "bold");
