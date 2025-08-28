@@ -41,6 +41,15 @@ const ResidentForm = () => {
     photos: [],
     aadhaars: [],
     proofFiles: [],
+    vacatingDate: "",
+    noticePeriod: "",
+    deductions: "",
+    refundable: "",
+    noticeprd:"No",
+    damage: "No",
+    damageItem: "",
+    damageAmount: "",
+
   });
   
   const handleChange = (e) => {
@@ -84,6 +93,226 @@ const ResidentForm = () => {
     startDate.setMonth(startDate.getMonth() + parseInt(formData.agreementPeriod, 10));
     return startDate.toISOString().split("T")[0];
   };
+
+//   const generateVacatingPDF = () => {
+//     const doc = new jsPDF('p', 'pt', 'a4');
+
+//     doc.addImage(logo, 'PNG', 200, 35, 200, 150);
+//     doc.setFontSize(10);
+//     doc.setTextColor(0, 0, 0);
+//     doc.text('#26  PEERLESS COLONY ,NEAR GARDEN CITY COLLEGE ,BHATTRAHALLI , KR PURAM 560049', 70, 180);
+//     doc.setFontSize(24);
+//     doc.setFont('helvetica', 'bold');
+//     doc.setTextColor(255, 0, 0);
+
+//     const subtitle= '#SAHANA LADIES PG';
+  
+//     const title = 'Tenant Vacating Acknowledgment Form';
+//     const pageWidth = doc.internal.pageSize.getWidth();
+//     const textWidth = doc.getTextWidth(title);
+//     const xCoordinate = (pageWidth - textWidth) / 2;
+//     doc.setFontSize(20);
+//     doc.setTextColor(0, 0, 0);
+//     doc.text(subtitle,200,200)
+//     doc.setTextColor(255, 0, 0);
+//     doc.setFontSize(24);
+//     doc.text(title, xCoordinate, 230);
+
+//     const tableData = 
+//        [
+//           ['RESIDENT NAME:', toCaps(formData.name)],
+//           ['ROOM NO:', toCaps(formData.roomNumber)],
+//           ['VACATING DATE', toCaps(formData.vacatingDate)],
+//           ["NOTICE PERIOS (DAYS)", toCaps(formData.noticePeriod)],
+//           ["DEPOSIT COLLECTED", `${formData.depositCollected}`],
+//           ["DEDUCTIONS", `${formData.deductions || 0}`],
+//           ["Refundable Amount", `${formData.refundable || 0}`],
+//           ["NOTICE PERIOD SERVED",
+//       formData.noticeprd === "Yes"
+//         ? "Yes – Tenant has served notice period."
+//         : "No – Tenant has NOT served notice period. As per terms, security deposit will NOT be refunded.",
+//     ],          ["Any Damages", toCaps(formData.damage)],
+//           // ["Refund Timeline", "Within 30 days from vacating date"],
+//         ]
+
+//         if (formData.damage === "Yes") {
+//   tableData.push(["Damaged Item", toCaps(formData.damageItem)]);
+//   tableData.push(["Damage Amount", `₹ ${formData.damageAmount}`]);
+// }
+
+        
+//     doc.autoTable({
+//       body: tableData,
+//       startY: 250, 
+//       styles: {
+//         fontSize: 12,
+//         halign: 'left',
+//         valign: 'middle',
+//         fillColor: null,
+//         textColor: 0,
+//         lineWidth: 0.5,
+//         lineColor: 0,
+//       },
+//       theme: 'plain',
+//       columnStyles: {
+//         0: { fontStyle: 'bold', cellWidth: 250 },
+//         1: { cellWidth: 'auto', overflow: 'linebreak' },
+//       },
+//     });
+  
+// const noteY = doc.autoTable.previous.finalY + 20;
+// doc.setFontSize(12);
+// doc.setTextColor(0, 0, 0);
+
+// doc.text(
+//   "Refund Timeline: The refundable security deposit (after deductions, if any) will be returned to the tenant within 30 days from the date of vacating, through Bank Transfer.",
+//   40,
+//   noteY,
+//   { maxWidth: 500 }
+// );
+
+// doc.setFontSize(12);
+// doc.setTextColor(0, 0, 0);
+// doc.text(
+//   `Declaration: This is to certify that the tenant has vacated the premises on ${formData.vacatingDate}. All dues have been reviewed, and the security deposit will be refunded within 30 days as per terms.`,
+//   40,
+//   noteY + 30,
+//   { maxWidth: 500 }
+// );
+
+// doc.setFontSize(12);
+// doc.text("Tenant Signature:", 40, 650);
+// doc.line(150, 650, 280, 650); 
+
+// doc.setFontSize(12);
+// doc.text("Management Signature (with Seal):", 320, 650);
+// doc.line(530, 650, 700, 650);
+
+// // doc.addImage(stamp, 'PNG', 350, 570, 300, 150);
+
+// doc.save(`${formData.name}_VacatingForm.pdf`);
+
+// };
+
+  
+  const generateVacatingPDF = () => {
+  const doc = new jsPDF("p", "pt", "a4");
+
+  // Logo
+  doc.addImage(logo, "PNG", 200, 35, 200, 150);
+
+  // Address
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
+  doc.text(
+    "#26  PEERLESS COLONY, NEAR GARDEN CITY COLLEGE, BHATTRAHALLI, KR PURAM - 560049",
+    70,
+    180
+  );
+
+  // Subtitle + Title
+  const subtitle = "#SAHANA LADIES PG";
+  const title = "Tenant Vacating Acknowledgment Form";
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const textWidth = doc.getTextWidth(title);
+  const xCoordinate = (pageWidth - textWidth) / 2;
+
+  doc.setFontSize(20);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(0, 0, 0);
+  doc.text(subtitle, 200, 200);
+
+  doc.setTextColor(255, 0, 0);
+  doc.setFontSize(20);
+  doc.text(title, 100, 230);
+
+  // Main Table Data
+  const tableData = [
+    ["RESIDENT NAME:", toCaps(formData.name)],
+    ["ROOM NO:", toCaps(formData.roomNumber)],
+    ["Vacating Date", toCaps(formData.vacatingDate)],
+    ["Notice Period (days)", toCaps(formData.noticePeriod)],
+    ["Deposit Collected", `${formData.depositCollected}`],
+    ["Deductions", `${formData.deductions || 0}`],
+    ["Refundable Amount", `${formData.refundable}`],
+    [
+      "NOTICE PERIOD SERVED",
+      formData.noticeprd === "Yes"
+        ? "Yes – Tenant has served notice period."
+        : "No – Tenant has NOT served notice period. As per terms, security deposit will NOT be refunded.",
+    ],
+    ["Any Damages", toCaps(formData.damage)],
+  ];
+
+  // Add damage details if applicable
+  if (formData.damage === "Yes") {
+    tableData.push(["Damaged Item", toCaps(formData.damageItem)]);
+    tableData.push(["Damage Amount", `${formData.damageAmount}`]);
+  }
+
+  // Render Table
+  doc.autoTable({
+    body: tableData,
+    startY: 250,
+    styles: {
+      fontSize: 12,
+      halign: "left",
+      valign: "middle",
+      textColor: 0,
+      lineWidth: 0.5,
+      lineColor: 0,
+    },
+    theme: "grid",
+    columnStyles: {
+      0: { fontStyle: "bold", cellWidth: 220 },
+      1: { cellWidth: 300, overflow: "linebreak" },
+    },
+  });
+
+  // Notes Section
+  const noteY = doc.autoTable.previous.finalY + 30;
+  doc.setFontSize(12);
+  doc.setTextColor(0, 0, 0);
+
+  doc.text(
+    "Refund Timeline:",
+    40,
+    noteY
+  );
+  doc.setFont("helvetica", "normal");
+  doc.text(
+    "The refundable security deposit (after deductions, if any) will be returned within 30 days from the date of vacating, through Bank Transfer (if eligible).",
+    40,
+    noteY + 15,
+    { maxWidth: 500 }
+  );
+
+  doc.setFont("helvetica", "bold");
+  doc.text("Declaration:", 40, noteY + 50);
+  doc.setFont("helvetica", "normal");
+  doc.text(
+    `This is to certify that the tenant has vacated the premises on ${formData.vacatingDate}. All dues have been reviewed and the refund will be processed as per terms.`,
+    40,
+    noteY + 65,
+    { maxWidth: 500 }
+  );
+
+  // Signatures Section
+  const signY = noteY + 130;
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "bold");
+  doc.text("Tenant Signature:", 40, signY);
+  doc.line(150, signY, 280, signY);
+
+  doc.text("Management Signature (with Seal):", 320, signY);
+  doc.line(530, signY, 700, signY);
+
+  // Stamp (optional, uncomment if needed)
+  doc.addImage(stamp, "PNG", 350, signY-15 , 180, 150);
+
+  // Save
+  doc.save(`${formData.name}_VacatingForm.pdf`);
+};
 
   const generatePDF = () => {
     const doc = new jsPDF('p', 'pt', 'a4');
@@ -299,7 +528,10 @@ if (formData.proofFiles.length > 0) {
   e.preventDefault();
   if (formData.receiptType === "Agreement") {
     generateAgreementPDF();
-  } else {
+  } else if (formData.receiptType === "Vacating") {
+    generateVacatingPDF();
+  }
+  else {
     generatePDF();
   }
 }}>
@@ -311,6 +543,7 @@ if (formData.proofFiles.length > 0) {
               <option value="Rent">Rent</option>
               <option value="Deposit">Deposit</option>
               <option value="Agreement">Agreement</option>
+              <option value="Vacating">Vacating</option>
             </select>
           </label>
           <label className="label">
@@ -387,6 +620,79 @@ if (formData.proofFiles.length > 0) {
           )}
 
           </>)}
+          {formData.receiptType === "Vacating" && (
+  <>
+    <label className="label">
+      Name:
+      <input type="text" name="name" value={formData.name} onChange={handleChange} required className="input" />
+    </label>
+    <label className="label">
+      Room Number:
+      <input type="text" name="roomNumber" value={formData.roomNumber} onChange={handleChange} required className="input" />
+    </label>
+    <label className="label">
+      Vacating Date:
+      <input type="date" name="vacatingDate" value={formData.vacatingDate} onChange={handleChange} required className="input" />
+    </label>
+    <label className="label">
+      Notice Period Served (days):
+      <input type="number" name="noticePeriod" value={formData.noticePeriod} onChange={handleChange} required className="input" />
+    </label>
+    <label className="label">
+      Deposit Collected:
+      <input type="number" name="depositCollected" value={formData.depositCollected} onChange={handleChange} required className="input" />
+    </label>
+    <label className="label">
+      Deductions (if any):
+      <input type="number" name="deductions" value={formData.deductions} onChange={handleChange} className="input" />
+    </label>
+    <label className="label">
+      Refundable Amount:
+      <input type="number" name="refundable" value={formData.refundable} onChange={handleChange} required className="input" />
+    </label>
+    <label className='label'>Notice Period Serverd:</label>
+    <label className='radio-btn'>
+        <input type="radio" name="noticeprd" value="Yes"  checked={formData.noticeprd === "Yes"} onChange={(e) => setFormData({ ...formData, noticeprd: e.target.value })} /> Yes
+    </label>
+    <label className='radio-btn' >
+        <input type="radio" name="noticeprd" value="No"  checked={formData.noticeprd === "No"} onChange={(e) => setFormData({ ...formData, noticeprd: e.target.value })} /> No
+    </label>
+
+<label className="label">Any Damages?</label>
+    <label className="radio-btn">
+      <input
+        type="radio"
+        name="damage"
+        value="Yes"
+        checked={formData.damage === "Yes"}
+        onChange={(e) => setFormData({ ...formData, damage: e.target.value })}
+      /> Yes
+    </label>
+    <label className="radio-btn">
+      <input
+        type="radio"
+        name="damage"
+        value="No"
+        checked={formData.damage === "No"}
+        onChange={(e) => setFormData({ ...formData, damage: e.target.value })}
+      /> No
+    </label>
+
+    {formData.damage === "Yes" && (
+      <>
+        <label className="label">
+          Damaged Item:
+          <input type="text" name="damageItem" value={formData.damageItem} onChange={handleChange} className="input" />
+        </label>
+        <label className="label">
+          Damage Amount:
+          <input type="number" name="damageAmount" value={formData.damageAmount} onChange={handleChange} className="input" />
+        </label>
+      </>
+    )}
+  </>
+)}
+
           {formData.receiptType ==="Agreement" && (
             <>
             <label className="label">
