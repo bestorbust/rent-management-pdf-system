@@ -214,8 +214,8 @@ const ResidentForm = () => {
   // Subtitle + Title
   const subtitle = "#SAHANA LADIES PG";
   const title = "Tenant Vacating Acknowledgment Form";
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const textWidth = doc.getTextWidth(title);
+  // const pageWidth = doc.internal.pageSize.getWidth();
+  // const textWidth = doc.getTextWidth(title);
   // const xCoordinate = (pageWidth - textWidth) / 2;
 
   doc.setFontSize(20);
