@@ -12,6 +12,24 @@ import docheader from './image/header2.png';
 
 
 const ResidentForm = () => {
+  const [isLoggedIn,setIsLoggedIn]=useState(false);
+  const [loginData,setLoginData]=useState({username:"",password:""});
+
+  const VALID_USER="samarth";
+  const VALID_PASS="samarth4565";
+
+
+  const handleLogin=(e)=>{
+    e.preventDefault();
+    if(loginData.username===VALID_USER && loginData.password===VALID_PASS){
+      
+      setIsLoggedIn(true);
+    } else{
+      alert ("Invalid username or password");
+    }
+  };
+
+
   const [formData, setFormData] = useState({
     name: '',
     roomNumber: '',
@@ -63,7 +81,7 @@ const ResidentForm = () => {
   };
   const toCaps = (value) => (value ? String(value).toUpperCase() : "");
 
-
+  
   const handleFileChange = (e) => {
     const { name, files } = e.target;
   
@@ -200,7 +218,7 @@ const ResidentForm = () => {
   const doc = new jsPDF("p", "pt", "a4");
 
   // Logo
-  doc.addImage(logo, "PNG", 200, 35, 200, 150);
+  doc.addImage(logo, "PNG", 200, 10, 200, 170);
 
   // Address
   doc.setFontSize(10);
@@ -218,14 +236,14 @@ const ResidentForm = () => {
   // const textWidth = doc.getTextWidth(title);
   // const xCoordinate = (pageWidth - textWidth) / 2;
 
-  doc.setFontSize(20);
+  doc.setFontSize(24);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(0, 0, 0);
-  doc.text(subtitle, 200, 200);
+  doc.text(subtitle, 180, 210);
 
   doc.setTextColor(255, 0, 0);
   doc.setFontSize(20);
-  doc.text(title, 100, 230);
+  doc.text(title, 120, 230);
 
   // Main Table Data
   const tableData = [
@@ -237,11 +255,12 @@ const ResidentForm = () => {
     ["Deductions", `${formData.deductions || 0}`],
     ["Refundable Amount", `${formData.refundable}`],
     [
-      "NOTICE PERIOD SERVED",
+      "AGREEMENT PERIOD COMPLETED",
       formData.noticeprd === "Yes"
-        ? "Yes – Tenant has served notice period."
+        ? "Yes – Tenant has served notice period. As per terms, security deposit will be refunded."
         : "No – Tenant has NOT served notice period. As per terms, security deposit will NOT be refunded.",
     ],
+
     ["Any Damages", toCaps(formData.damage)],
   ];
 
@@ -308,8 +327,7 @@ const ResidentForm = () => {
   doc.text("Management Signature (with Seal):", 320, signY);
   doc.line(530, signY, 700, signY);
 
-  // Stamp (optional, uncomment if needed)
-  doc.addImage(stamp, "PNG", 350, signY-15 , 180, 150);
+  doc.addImage(stamp, "PNG", 350, signY , 180, 150);
 
   // Save
   doc.save(`${formData.name}_VacatingForm.pdf`);
@@ -520,9 +538,20 @@ if (formData.proofFiles.length > 0) {
 
   
   return (
-    <div className="container">
+    <div >
 
- 
+      {!isLoggedIn?(
+        <div className='login-container'>
+        <form className='login-box' onSubmit={handleLogin}>
+          <h2>Login to Continue</h2>
+          <input type="text" name="username" placeholder="Enter Username" value={formData.username} onChange={(e) => setLoginData({...loginData, username: e.target.value})} required/>
+
+          <input type="password" name="password" placeholder='Enter password' value={formData.password} onChange={(e) => setLoginData({...loginData, password: e.target.value})} required/>
+          <button type="submit">Login</button>
+        </form>
+        </div>
+      ):(
+    <div className="container"> 
       <div className="form">
         <h2 className="heading">Generate PDF</h2>
         <form onSubmit={(e) => { 
@@ -651,7 +680,7 @@ if (formData.proofFiles.length > 0) {
       Refundable Amount:
       <input type="number" name="refundable" value={formData.refundable} onChange={handleChange} required className="input" />
     </label>
-    <label className='label'>Notice Period Serverd:</label>
+    <label className='label'>Agreement Period Completed:</label>
     <label className='radio-btn'>
         <input type="radio" name="noticeprd" value="Yes"  checked={formData.noticeprd === "Yes"} onChange={(e) => setFormData({ ...formData, noticeprd: e.target.value })} /> Yes
     </label>
@@ -787,6 +816,8 @@ if (formData.proofFiles.length > 0) {
           <button type="submit" className="button">Generate PDF</button>
         </form>
       </div>
+    </div>
+      )}
     </div>
   );
 };
