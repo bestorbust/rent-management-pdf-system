@@ -15,8 +15,8 @@ const ResidentForm = () => {
   const [isLoggedIn,setIsLoggedIn]=useState(false);
   const [loginData,setLoginData]=useState({username:"",password:""});
 
-  const VALID_USER="samarth";
-  const VALID_PASS="samarth4565";
+  const VALID_USER="Sahana ladies pg";
+  const VALID_PASS="Sahana4565#";
 
 
   const handleLogin=(e)=>{
