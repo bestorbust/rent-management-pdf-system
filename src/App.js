@@ -218,7 +218,7 @@ const ResidentForm = () => {
   const doc = new jsPDF("p", "pt", "a4");
 
   // Logo
-  doc.addImage(logo, "PNG", 200, 10, 200, 170);
+  doc.addImage(logo, "PNG", 200, 10, 200, 150);
 
   // Address
   doc.setFontSize(10);
@@ -576,6 +576,9 @@ if (formData.proofFiles.length > 0) {
               <option value="Vacating">Vacating</option>
             </select>
           </label>
+
+          {formData.receiptType !=="Agreement" && formData.receiptType !== "Vacating" && ( 
+            <>
           <label className="label">
             Name:
             <input type="text" name="name" value={formData.name} onChange={handleChange} required className="input" />
@@ -648,6 +651,8 @@ if (formData.proofFiles.length > 0) {
               </label>
             </>
           )}
+
+          </>)}
 
           </>)}
           {formData.receiptType === "Vacating" && (
