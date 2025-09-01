@@ -585,7 +585,7 @@ if (formData.proofFiles.length > 0) {
           </label>
           <label className="label">
             Room Number:
-            <input type="number" name="roomNumber" value={formData.roomNumber} onChange={handleChange} required className="input" min="0" />
+            <input type="text" name="roomNumber" value={formData.roomNumber} onChange={handleChange} required className="input" min="0" />
           </label>
           <label className="label">
             Mode of Payment:
@@ -600,7 +600,7 @@ if (formData.proofFiles.length > 0) {
           <label className="label">
             {formData.receiptType === 'Rent' ? 'Rent Amount:' : 'Deposit Amount:'}
             <input
-              type="number"
+              type="text"
               name="amount"
               value={formData.amount}
               onChange={handleChange}
@@ -625,7 +625,7 @@ if (formData.proofFiles.length > 0) {
               <label className="label">
                 Overstanding Dues:
                 <input
-                  type="number"
+                  type="text"
                   name="overstandingDues"
                   value={formData.overstandingDues}
                   onChange={handleChange}
@@ -671,19 +671,19 @@ if (formData.proofFiles.length > 0) {
     </label>
     <label className="label">
       Notice Period Served (days):
-      <input type="number" name="noticePeriod" value={formData.noticePeriod} onChange={handleChange} required className="input" />
+      <input type="text" name="noticePeriod" value={formData.noticePeriod} onChange={handleChange} required className="input" />
     </label>
     <label className="label">
       Deposit Collected:
-      <input type="number" name="depositCollected" value={formData.depositCollected} onChange={handleChange} required className="input" />
+      <input type="text" name="depositCollected" value={formData.depositCollected} onChange={handleChange} required className="input" />
     </label>
     <label className="label">
       Deductions (if any):
-      <input type="number" name="deductions" value={formData.deductions} onChange={handleChange} className="input" />
+      <input type="text" name="deductions" value={formData.deductions} onChange={handleChange} className="input" />
     </label>
     <label className="label">
       Refundable Amount:
-      <input type="number" name="refundable" value={formData.refundable} onChange={handleChange} required className="input" />
+      <input type="text" name="refundable" value={formData.refundable} onChange={handleChange} required className="input" />
     </label>
     <label className='label'>Agreement Period Completed:</label>
     <label className='radio-btn'>
@@ -721,7 +721,7 @@ if (formData.proofFiles.length > 0) {
         </label>
         <label className="label">
           Damage Amount:
-          <input type="number" name="damageAmount" value={formData.damageAmount} onChange={handleChange} className="input" />
+          <input type="text" name="damageAmount" value={formData.damageAmount} onChange={handleChange} className="input" />
         </label>
       </>
     )}
@@ -750,7 +750,7 @@ if (formData.proofFiles.length > 0) {
       <label className='label'>Permanent Residential Address:<input type="text" name="address" onChange={handleChange} required className='input'  /></label>
       <label className='label'>Contact No.: <input type="text" name="contactNo" onChange={handleChange}  required className='input' /></label>
       <label className='label'>Date of Admission: <input type="date" name="dateOfAdmission" value={formData.dateOfAdmission} onChange={handleChange} required className='input'  /></label>
-      <label className='label'>Agreement Period (Months): <input type="number" name="agreementPeriod" value={formData.agreementPeriod} onChange={handleChange}  required className='input' /></label>
+      <label className='label'>Agreement Period (Months): <input type="text" name="agreementPeriod" value={formData.agreementPeriod} onChange={handleChange}  required className='input' /></label>
       <label className='label'>End Date: <input type="text" value={calculateEndDate()} disabled className='input'/></label>
 
       <label className='label'>Payment Date: <input type="date" name="paymentDate" value={formData.paymentDate} onChange={handleChange} required className='input' ></input></label>
@@ -771,7 +771,7 @@ if (formData.proofFiles.length > 0) {
       
 
       <label className='label'>Recommended By: <input type="text" name="recommendedBy" onChange={handleChange} required className='input'  /></label>
-      <label className='label'>Advance (Deposit): <input type="number" name="advanceDeposit" onChange={handleChange} required className='input'  /></label>
+      <label className='label'>Advance (Deposit): <input type="text" name="advanceDeposit" onChange={handleChange} required className='input'  /></label>
       <label className='label'>Guardian No.: <input type="text" name="guardianNo" onChange={handleChange} required className='input'  /></label>
       <label className='label'>Health Issues:</label>
 <label className='radio-btn'>
