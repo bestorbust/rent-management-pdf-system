@@ -61,7 +61,7 @@
 .container {
   margin: 0 auto;
   padding: 20px;
-  background-image: url('./image/background.jpg'); 
+  background-image: url('./image/pg.jpg'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -88,7 +88,7 @@
   display: block;
   margin-bottom: 10px;
   font-family: Arial, sans-serif;
-  color: #555;
+  color: #0f0f0f;
   font-size: 16px;
 }
 
@@ -96,7 +96,7 @@
   padding: 10px;
   font-size: 16px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #626060;
   margin-bottom: 20px;
   width: 100%;
   box-sizing: border-box;
