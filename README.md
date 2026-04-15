@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# 🧾 PG Rent Management System – PDF Automation Tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🔗 Live Demo: https://genpdf.netlify.app/  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 Overview
 
-### `npm start`
+Developed a web-based tool for a PG (Paying Guest) accommodation to automate the generation of rent receipts, deposit receipts, rental agreements, and vacating forms.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This system replaces manual paperwork by generating professionally formatted PDFs with dynamic user input.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 💡 Problem
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Managing rent receipts and agreements manually in PG accommodations is time-consuming and error-prone.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Solution
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Built a React-based system that allows admins to:
+- Enter tenant details
+- Select document type (Rent / Deposit / Agreement / Vacating)
+- Automatically generate formatted PDFs
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## ✨ Features
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 🔐 Admin login system
+- 🧾 Rent & deposit receipt generation
+- 📄 Rental agreement generation (multi-page)
+- 🚪 Vacating acknowledgment form
+- 🖼️ Image upload (Aadhaar, photos, documents)
+- 📊 Dynamic PDF formatting using jsPDF
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## ⚙️ Tech Stack
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- React.js
+- JavaScript
+- jsPDF & jspdf-autotable
+- HTML/CSS
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🧠 Key Implementation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Dynamic form handling for multiple document types
+- Conditional rendering based on receipt type
+- File uploads converted to base64 for embedding in PDFs
+- Multi-page PDF generation with images and tables
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🧪 Real-world Usage
 
-### Analyzing the Bundle Size
+- Built for a PG management use case
+- Helps automate administrative workflows
+- Reduces manual effort and improves consistency
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## ▶️ Run Locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/bestorbust/pg-rent-management-system.git
+cd pg-rent-management-system
+npm install
+npm start
